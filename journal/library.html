@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Library | Stillroom</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,700&family=Space+Grotesk:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand" href="index.html">Stillroom</a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="index.html" data-nav="home">Home</a>
+          <a href="write.html" data-nav="write">Write</a>
+          <a href="library.html" data-nav="library">Library</a>
+        </nav>
+      </header>
+
+      <main class="library-layout">
+        <section class="library-header">
+          <p class="eyebrow">Stored entries</p>
+          <h1>Your private library.</h1>
+          <p>
+            Manage entries with complete local control.
+          </p>
+        </section>
+
+        <section class="stats" aria-label="Journal summary">
+          <article>
+            <h2 id="entryCount">0</h2>
+            <p>Entries</p>
+          </article>
+          <article>
+            <h2 id="latestDate">-</h2>
+            <p>Latest</p>
+          </article>
+          <article>
+            <h2 id="totalWords">0</h2>
+            <p>Total words</p>
+          </article>
+        </section>
+
+        <section id="entriesList" class="entries-list" aria-live="polite"></section>
+      </main>
+
+      <footer class="site-footer">
+        <p>Stillroom Journal</p>
+        <p id="yearStamp"></p>
+      </footer>
+    </div>
+    <script src="assets/js/base.js"></script>
+    <script src="assets/js/library.js"></script>
+  </body>
+</html>

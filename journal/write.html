@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Write Entry | Stillroom</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,700&family=Space+Grotesk:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand" href="index.html">Stillroom</a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="index.html" data-nav="home">Home</a>
+          <a href="write.html" data-nav="write">Write</a>
+          <a href="library.html" data-nav="library">Library</a>
+        </nav>
+      </header>
+
+      <main class="compose-layout">
+        <section class="compose-panel">
+          <p class="eyebrow">New entry</p>
+          <h1>Write without interruption.</h1>
+          <form id="journalForm" class="journal-form" novalidate>
+            <label for="entryTitle">Title</label>
+            <input id="entryTitle" name="title" type="text" maxlength="80" required />
+
+            <div class="inline-fields">
+              <div>
+                <label for="entryMood">State of mind</label>
+                <select id="entryMood" name="mood">
+                  <option value="Focused">Focused</option>
+                  <option value="Calm">Calm</option>
+                  <option value="Messy">Messy</option>
+                  <option value="Restless">Restless</option>
+                  <option value="Hopeful">Hopeful</option>
+                </select>
+              </div>
+              <div>
+                <label for="entryTags">Tags</label>
+                <input id="entryTags" name="tags" type="text" placeholder="learning, ideas" />
+              </div>
+            </div>
+
+            <label for="entryBody">Entry</label>
+            <textarea
+              id="entryBody"
+              name="body"
+              rows="14"
+              required
+              placeholder="What shifted today?"
+            ></textarea>
+
+            <div class="form-meta">
+              <p id="wordCount">0 words</p>
+              <p id="saveMessage" aria-live="polite"></p>
+            </div>
+
+            <div class="hero-actions">
+              <button class="btn btn-primary" type="submit">Save Entry</button>
+              <a class="btn btn-outline" href="library.html">View Library</a>
+            </div>
+          </form>
+        </section>
+
+        <aside class="side-notes">
+          <h2>Writing cues</h2>
+          <ul>
+            <li>Describe one concrete moment from today.</li>
+            <li>Name what you are avoiding and why.</li>
+            <li>End with the next tiny action.</li>
+          </ul>
+          <div class="note-block">
+            <h3>Draft safety</h3>
+            <p>
+              Drafts auto-save as you type. Submitting creates a permanent entry in your
+              browser storage.
+            </p>
+          </div>
+        </aside>
+      </main>
+
+      <footer class="site-footer">
+        <p>Stillroom Journal</p>
+        <p id="yearStamp"></p>
+      </footer>
+    </div>
+    <script src="assets/js/base.js"></script>
+    <script src="assets/js/compose.js"></script>
+  </body>
+</html>
