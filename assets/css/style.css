@@ -9,6 +9,13 @@
   --max-width: 1140px;
   --radius: 14px;
   --shadow-hard: 6px 6px 0 #1d1d1b;
+  --glass: rgba(255,255,255,0.6);
+  --glass-border: rgba(29,29,27,0.07);
+  --muted-shadow: rgba(29,29,27,0.06);
+  --transition: 220ms cubic-bezier(.2,.9,.2,1);
+  --bg-1: linear-gradient(120deg, rgba(234,220,210,0.18), transparent 40%);
+  --bg-2: linear-gradient(220deg, rgba(186,63,29,0.03), transparent 35%);
+  --bg-anim-duration: 18s;
 }
 
 * {
@@ -22,11 +29,29 @@ body {
 }
 
 body {
-  background: var(--paper);
+  background-color: var(--paper);
+  background-image: var(--paper-fiber), var(--bg-1), var(--bg-2), radial-gradient(circle at 10% 10%, rgba(186,63,29,0.02), transparent 6%), radial-gradient(circle at 90% 90%, rgba(29,29,27,0.01), transparent 8%);
+  background-blend-mode: multiply, overlay, normal, normal, normal;
   color: var(--ink);
   font-family: "Space Grotesk", "Segoe UI", sans-serif;
   min-height: 100vh;
-  line-height: 1.4;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* animated slow-shifting background to add subtle life */
+@keyframes bgShift {
+  0% { background-position: 0% 20%, 0% 80%, 0% 0%, 0% 0%, 0% 0%; }
+  50% { background-position: 50% 40%, 50% 60%, 0% 0%, 0% 0%, 0% 0%; }
+  100% { background-position: 100% 20%, 100% 80%, 0% 0%, 0% 0%, 0% 0%; }
+}
+
+body {
+  animation: bgShift var(--bg-anim-duration) ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body { animation: none; }
 }
 
 .page-shell {
@@ -39,13 +64,29 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 2px solid var(--line);
-  background: var(--card);
-  padding: 0.7rem 1rem;
-  border-radius: 999px;
+  padding: 0.72rem 1rem;
+  border-radius: 20px;
+  background: rgba(248,246,241,0.66); /* preserve card color but translucent */
+  border: 2px solid var(--line); /* keep the original darker border */
+  backdrop-filter: blur(6px) saturate(110%);
+  -webkit-backdrop-filter: blur(6px) saturate(110%);
+  box-shadow: 0 8px 20px var(--muted-shadow);
   position: sticky;
   top: 0.8rem;
   z-index: 10;
+  isolation: isolate;
+}
+
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  background: radial-gradient(400px 120px at 12% 22%, rgba(186,63,29,0.02), transparent 10%),
+              radial-gradient(300px 90px at 88% 78%, rgba(29,29,27,0.01), transparent 14%);
+  filter: blur(8px);
+  z-index: -1;
+  pointer-events: none;
 }
 
 .brand {
@@ -53,8 +94,9 @@ body {
   color: var(--ink);
   font-family: "Fraunces", Georgia, serif;
   font-weight: 700;
-  font-size: 1.1rem;
-  letter-spacing: 0.01em;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+  display: inline-block;
 }
 
 .site-nav {
@@ -65,17 +107,24 @@ body {
 .site-nav a {
   text-decoration: none;
   color: var(--ink);
-  padding: 0.45rem 0.75rem;
+  padding: 0.45rem 0.8rem;
   border-radius: 999px;
   border: 1px solid transparent;
-  transition: transform 180ms ease, background-color 180ms ease;
+  transition: transform var(--transition), background-color var(--transition), box-shadow var(--transition);
 }
 
 .site-nav a:hover,
 .site-nav a:focus-visible {
   background: var(--accent-soft);
-  border-color: var(--line);
-  transform: translateY(-1px);
+  border-color: var(--glass-border);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(29,29,27,0.04);
+}
+
+.site-nav a.is-active {
+  background: linear-gradient(90deg, var(--ink), rgba(29,29,27,0.9));
+  color: var(--paper);
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.06);
 }
 
 .site-nav a.is-active {
@@ -141,7 +190,7 @@ h1 {
   font-size: 0.95rem;
   background: transparent;
   cursor: pointer;
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  transition: transform var(--transition), box-shadow var(--transition);
 }
 
 .btn:hover,
@@ -151,8 +200,10 @@ h1 {
 }
 
 .btn-primary {
-  background: var(--accent);
+  background: linear-gradient(90deg, var(--accent), #c85a3a);
   color: #fff9f2;
+  border-color: transparent;
+  box-shadow: 0 6px 18px rgba(186,63,29,0.06);
 }
 
 .btn-outline {
